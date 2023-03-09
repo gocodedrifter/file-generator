@@ -1,20 +1,20 @@
 package com.ulventech.generator;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class UniqueStringGenerator implements StringGenerator {
-	private final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	private final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	private final int LINE_LENGTH = 100;
+    private final SecureRandom random = new SecureRandom();
 
     @Override
-    public String generateString(int length) {
-        StringBuilder builder = new StringBuilder();
-        Random random = new Random();
-
-        while (builder.length() < length) {
-            int index = random.nextInt(CHARACTERS.length());
-            builder.append(CHARACTERS.charAt(index));
+    public String generateString() throws Exception {
+        byte[] randomBytes = new byte[LINE_LENGTH];
+        random.nextBytes(randomBytes);
+        StringBuilder sb = new StringBuilder(LINE_LENGTH);
+        for (byte b : randomBytes) {
+            sb.append(CHARACTERS.charAt(Math.abs(b) % CHARACTERS.length()));
         }
-
-        return builder.toString();
+        return sb.toString();
     }
 }
