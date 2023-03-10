@@ -1,5 +1,7 @@
 # file-generator
 
+The apps using JDK version 1.8
+
 To run the test: mvn test
 
 To build jar: mvn install 
